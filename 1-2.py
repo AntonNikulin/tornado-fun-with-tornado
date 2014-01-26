@@ -18,7 +18,12 @@ class WrapHandler(tornado.web.RequestHandler):
 		width = self.get_argument('width', 40)
 		self.write(textwrap.fill(text, width))
 
+class TestHandler(tornado.web.RequestHandler):
+	def get(self):
+		self.write("And this is a get")
 
+	def head(self):
+		self.set_status(400)
 
 if __name__ == "__main__":
 	tornado.options.parse_command_line()

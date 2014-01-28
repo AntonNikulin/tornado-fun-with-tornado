@@ -8,3 +8,4 @@ intro to tornado
 * 1-3 custom error  
 * 2-1 forms and templates
 * 4-1 simple RESTful "dictionary" with mongoDB
+* 5   comet(long pulling)

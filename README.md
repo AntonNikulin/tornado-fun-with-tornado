@@ -4,8 +4,9 @@
 little snippets, modified code examples, etc
 intro to tornado
 
-* 1-2 simple GET POST HEAD
-* 1-3 custom error  
-* 2-1 forms and templates
-* 4-1 simple RESTful "dictionary" with mongoDB
-* 5   comet(long pulling)
+* 1-2.py	simple GET POST HEAD
+* 1-3.py	custom error  
+* 2/2-1.py 	forms and templates
+* 4/4-1.py	simple RESTful "dictionary" with mongoDB
+* 5/1/5.py	comet(long pulling) draft ver.
+* 5/2/s.py 	webSockets 

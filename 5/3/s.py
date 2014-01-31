@@ -10,7 +10,7 @@ from uuid import uuid4
 class Counter(object):
     count = 10
 
-    def add(number = 1):
+    def add(self, number = 1):
         self.count += number
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -23,7 +23,9 @@ class WsHandler(tornado.websocket.WebSocketHandler):
         print "conn open"
 
     def on_message(self, message):
-        self.write_message(message)
+        self.application.counter.add(int(message))
+        count = str(self.application.counter.count)
+        self.write_message(count)
 
 class Application(tornado.web.Application):
     def __init__(self):

@@ -19,6 +19,7 @@ class Counter(object):
 
     def notifyObservers(self):
         for observer in self.observers:
+            print observer
             observer.valueChanged()
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -29,8 +30,8 @@ class IndexHandler(tornado.web.RequestHandler):
 class WsHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         print "conn open"
-        self.application.counter.registerObserver(self)
-        self.application.counter.notifyObservers()
+        if self not in self.application.counter.observers:
+            self.application.counter.registerObserver(self)
 
     def on_message(self, message):
         self.application.counter.add(int(message))

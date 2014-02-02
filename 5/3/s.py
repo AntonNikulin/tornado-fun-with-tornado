@@ -9,9 +9,17 @@ from uuid import uuid4
 
 class Counter(object):
     count = 10
+    observers = []
 
     def add(self, number = 1):
         self.count += number
+
+    def registerObserver(self, observer):
+        self.observers.append(observer)
+
+    def notifyObservers(self):
+        for observer in self.observers:
+            observer.valueChanged()
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
@@ -21,9 +29,14 @@ class IndexHandler(tornado.web.RequestHandler):
 class WsHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         print "conn open"
+        self.application.counter.registerObserver(self)
+        self.application.counter.notifyObservers()
 
     def on_message(self, message):
         self.application.counter.add(int(message))
+        self.application.counter.notifyObservers()
+
+    def valueChanged(self):        
         count = str(self.application.counter.count)
         self.write_message(count)
 

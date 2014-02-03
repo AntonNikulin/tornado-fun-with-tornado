@@ -11,3 +11,4 @@ intro to tornado
 * 5/1/5.py	comet(long pulling) draft ver.
 * 5/2/s.py 	webSockets 
 * 5/3/s.py	webSockets, naive Observer, sync value among all viewrs
+* 6/1.py	cookie counter

@@ -8,6 +8,7 @@ from tornado.options import define, options
 define("port", default=8000, help="run on the given port", type=int)
 
 class BaseHandler(tornado.web.RequestHandler):
+	#for auth overrides default get_current_user
 	def get_current_user(self):
 		return self.get_secure_cookie("username")
 
@@ -22,7 +23,8 @@ class LoginHandler(BaseHandler):
 
 
 class WelcomeHandler(BaseHandler):
-	@tornado.web.authenticated
+	@tornado.web.authenticated #call get_current_user to current_user prop.
+								#if false: redirect to login_url
 	def get(self):
 		self.render("index.html", user=self.current_user)
 
@@ -41,7 +43,7 @@ if __name__ == "__main__":
 	"template_path": os.path.dirname(__file__),
 	"cookie_secret": "bZJc2sWbQLKos6GkHn=",
 	"xsrf_cookies": True,
-	"login_url": "/login",
+	"login_url": "/login", #req for @authenticated decorator
 	}
 
 	application = tornado.web.Application([
